@@ -132,14 +132,15 @@ function handleJump() {
 
     const now = performance.now();
     const delta = now - state.cueStartTime;
+    const timeSec = (delta / 1000).toFixed(3); // e.g. "3.123"
 
     if (delta < CONFIG.SUCCESS_WINDOW_START) {
-        failGame("早すぎ！3.3秒待って。");
+        failGame(`早すぎ！3.3秒待って (${timeSec}秒)`);
     } else if (delta < CONFIG.FALL_TIME) {
-        winGame();
+        winGame(timeSec);
     } else {
         // Likely already handled by timeout, but just in case
-        failGame("遅すぎ！");
+        failGame(`遅すぎ！ (${timeSec}秒)`);
     }
 }
 
@@ -156,7 +157,7 @@ function failGame(reason) {
     UI.sub.innerText = "スペースキーでリトライ";
 }
 
-function winGame() {
+function winGame(timeSec) {
     if (state.gameOver) return;
     state.playing = false;
     state.gameOver = true;
@@ -171,7 +172,7 @@ function winGame() {
         UI.ring.classList.add('falling');
     }, 200);
 
-    UI.status.innerText = "成功！ナイスジャンプ！";
+    UI.status.innerText = `成功！ナイスジャンプ！ (${timeSec}秒)`;
     UI.sub.innerText = "スペースキーでもう一度";
 }
 
