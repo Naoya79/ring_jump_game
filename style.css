@@ -133,3 +133,29 @@ body {
         transform: translate(-50%, -50%) rotateX(-90deg) translateY(-20px);
     }
 }
+
+@keyframes shake {
+    0% {
+        transform: translateZ(0);
+    }
+
+    25% {
+        transform: translateZ(2px);
+    }
+
+    50% {
+        transform: translateZ(0);
+    }
+
+    75% {
+        transform: translateZ(-2px);
+    }
+
+    100% {
+        transform: translateZ(0);
+    }
+}
+
+.shaking {
+    animation: shake 0.1s infinite;
+}

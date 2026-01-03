@@ -89,6 +89,7 @@ function startGame() {
 
     // Reset Visuals
     UI.ring.classList.remove('falling');
+    UI.ring.classList.remove('shaking');
     UI.player.classList.remove('jump-anim');
     UI.ring.style.opacity = '1';
     UI.status.innerText = "待機中...";
@@ -107,6 +108,7 @@ function startCue() {
     state.cueStarted = true;
     state.cueStartTime = performance.now();
     playCueSound();
+    UI.ring.classList.add('shaking');
     UI.status.innerText = "準備はいい？";
 
     // Schedule Fall
@@ -152,6 +154,7 @@ function failGame(reason) {
     clearTimeout(gameTimeout);
 
     playLossSound();
+    UI.ring.classList.remove('shaking');
     UI.ring.classList.add('falling'); // Physical fall
     UI.status.innerText = reason;
     UI.sub.innerText = "スペースキーでリトライ";
@@ -165,6 +168,7 @@ function winGame(timeSec) {
     clearTimeout(gameTimeout);
 
     playWinSound();
+    UI.ring.classList.remove('shaking');
     UI.player.classList.add('jump-anim');
 
     // Ring falls shortly after jump
